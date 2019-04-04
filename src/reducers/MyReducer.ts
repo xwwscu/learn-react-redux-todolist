@@ -25,13 +25,19 @@ export default class MyReducer {
                     })
                 });
             case ActionConstants.ACTION_TYPE_TOGGLE_TODO:
+                const newState = Object.assign({}, state, 
+                    {todos: state.todos.map(
+                        todo => todo.id === action.id 
+                        ? { ...todo, finished: !todo.finished}
+                        : todo)});
                 // tslint:disable-next-line:only-arrow-functions
-                return Object.assign({}, state, state.todos.map(function(todo) {
+                /* const newState =  Object.assign({}, state, state.todos.map(function(todo) {
                     if(todo.id === action.id) {
                         todo.finished = !todo.finished;
                     }
                     return todo;
-                }));
+                }));*/
+                return newState;
             default:
                 return state;
         }
